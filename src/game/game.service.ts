@@ -68,13 +68,11 @@ export class GameService {
         ? game.result[0].currentQuestionIndex
         : 0;
       if (game?.result[0]?.playerId?.gameStatus == "completed") {
-        return res
-          .status(statusOk)
-          .json(
-            successResponse(statusOk, "Game completed", {
-              player: game.result[0].playerId,
-            })
-          );
+        return res.status(statusOk).json(
+          successResponse(statusOk, "Game completed", {
+            player: game.result[0].playerId,
+          })
+        );
       }
       const currentQuestionId = game.result[0].questions[currentIndex];
       console.log("currentQuestionId: ", currentQuestionId);
@@ -172,6 +170,7 @@ export class GameService {
           successResponse(statusOk, "Question Answered", {
             correct: true,
             prizeMoney: money,
+            correctAnswered: question.result[0].correctAnswer,
           })
         );
       } else {
@@ -201,6 +200,7 @@ export class GameService {
           successResponse(statusOk, "Question Answered", {
             correct: false,
             prizeMoney: prizeMoney,
+            correctAnswered: question.result[0].correctAnswer,
           })
         );
       }
